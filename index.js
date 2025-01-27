@@ -9,8 +9,8 @@ const firebaseConfig = {
   projectId: "chatnow-d053e",
   storageBucket: "chatnow-d053e.firebasestorage.app",
   messagingSenderId: "222972944786",
-  appId: "1:222972944786:web:3c2e7bc35108f23408214b",
-  measurementId: "G-NFQ7VC69ZP"
+  appId: "1:222972944786:web:712834d91384ff1e08214b",
+  measurementId: "G-7GL9JVGPLZ"
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -23,6 +23,7 @@ googleLoginButton.addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     console.log("User Info:", result.user);
+    alert(`Welcome, ${result.user.displayName}`);
   } catch (error) {
     console.error("Error:", error);
   }

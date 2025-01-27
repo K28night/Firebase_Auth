@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatNow</title>
+    <link rel="stylesheet" href="./index.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="js/Real-Time%20Chating%20with%20Firebase%20Auth/index.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Faculty+Glyphic&family=Headland+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Oswald:wght@200..700&family=Parkinsans:wght@300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+IN:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Protest+Revolution&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+        <h1>ChatNow</h1>
+    </div>
+<div class="wel">
+    <h1>Welcome to ChatNow</h1>
+        <p>Your real-time messaging solution to stay connected with friends and family.</p>
+        <p>Sign in or create an account to start chatting instantly!</p>
+        <button class="btn login" id="openModal">Login</button>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <div class="tabs">
+                <button id="loginTab" class="active">Login</button>
+                <button id="firelogin" class="active">Login as google</button>
+                <button id="firelogin" class="active">Register as google</button>
+                <button id="registerTab">Register</button>
+              </div>
+        
+              <form id="loginForm" class="form active">
+                <input type="text" placeholder="Username" required />
+                <input type="password" placeholder="Password" required />
+                <button type="submit">Login</button>
+              </form>
+        
+              <form id="registerForm" class="form">
+                <input type="text" placeholder="Username" required />
+                <input type="email" placeholder="Email" required />
+                <input type="password" placeholder="Password" required />
+                <button type="submit">Register</button>
+              </form>
+            </div>
+          </div>
+</div>
+<header>
+    <div class="head">
+        <div class="content">
+    <span> @2025 Knight28_P_J</span>
+    <div class="left">
+    <a href="https://github.com/K28night"><i class="fa-brands fa-github" ></i></a>
+<a href="https://www.linkedin.com/in/alan-pj-5747a1247/"><i class="fa-brands fa-linkedin"></i></a></div></div>
+    </div>
+</header>
+<script type="module" src="index.js"></script>
+</body>
+</html>

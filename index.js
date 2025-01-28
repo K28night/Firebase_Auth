@@ -38,6 +38,7 @@ googleLoginButton.addEventListener("click", async () => {
     const result = await signInWithPopup(auth, provider);
     console.log("User Info:", result.user);
     alert(`Welcome, ${result.user.displayName}`);
+    window.location.href="welcome.html?name="+encodeURIComponent(result.user.displayName);;
   } catch (error) {
     console.error("Error during sign-in:", error);
     alert(`Error: ${error.message}`);

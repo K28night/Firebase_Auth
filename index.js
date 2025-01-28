@@ -81,6 +81,7 @@ const modal = document.getElementById("myModal");
 
     registerTab.addEventListener("click", () => {
       registerTab.classList.add("active");
+      loginTab.classList.remove("ulogin");
       loginTab.classList.remove("active");
       registerForm.classList.add("active");
       loginForm.classList.remove("active");

@@ -6,6 +6,14 @@
     <title>ChatNow</title>
 </head>
 <body>
-    <h1>Welcome </h1>
+   
+    <h1>Welcome!</h1>
+    <p id="name"></p>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get("name");
+        console.log(name); // Output: John Doe
+        document.querySelector("name").textContent="Hello "+name;
+        </script>
 </body>
 </html>

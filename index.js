@@ -40,7 +40,7 @@ document.querySelector(".ulogin").addEventListener("click", async (e)=>{
 const email=document.querySelector("#email").value;
 const pass=document.querySelector("#pass").value;
 try{
-await signInWithEmailAndPassword(auth,email,pass);
+const result=await signInWithEmailAndPassword(auth,email,pass);
 alert("User signed in successfully");
 window.location.href="welcome.html?name="+encodeURIComponent(result.user.displayName);
 }

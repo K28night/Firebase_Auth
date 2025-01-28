@@ -18,7 +18,7 @@ const auth = getAuth(app);
 
 
 //sign up
-document.querySelector("rlogin"),addEventListener("click", e=>{
+document.querySelector("#rlogin"),addEventListener("click", e=>{
   e.preventDefault();
   const email=document.querySelector("email");
   const password=document.querySelector("pass");

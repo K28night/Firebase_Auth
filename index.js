@@ -1,7 +1,7 @@
 // Import the Firebase modules you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getAuth,signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 // Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD1j2jZemTd21wo4k1qctyfgsDDfaX-XL8",
@@ -26,7 +26,7 @@ document.querySelector(".rlogin").addEventListener("click", async (e) => {
   const username = document.querySelector("#username").value;
 
   try {
-    const cred = await auth.createUserWithEmailAndPassword(auth,email, password);
+    await createUserWithEmailAndPassword(auth, email, password);
     alert(`User ${username} signed up successfully!`);
   } catch (error) {
     alert(`Error: ${error.message}`);

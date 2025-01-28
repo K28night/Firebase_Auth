@@ -1,7 +1,7 @@
 // Import the Firebase modules you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
 // Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD1j2jZemTd21wo4k1qctyfgsDDfaX-XL8",

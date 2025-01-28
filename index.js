@@ -34,13 +34,16 @@ const googleLoginButton = document.getElementById("firelogin");
 googleLoginButton.addEventListener("click", async () => {
   const provider = new GoogleAuthProvider();
   try {
+    console.log("Attempting sign-in...");
     const result = await signInWithPopup(auth, provider);
     console.log("User Info:", result.user);
     alert(`Welcome, ${result.user.displayName}`);
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error during sign-in:", error);
+    alert(`Error: ${error.message}`);
   }
 });
+
 
 const modal = document.getElementById("myModal");
     const openModalBtn = document.getElementById("openModal");

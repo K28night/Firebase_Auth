@@ -16,6 +16,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+
+//sign up
+document.querySelector("rlogin"),addEventListener("click", e=>{
+  e.preventDefault();
+  const email=document.querySelector("email");
+  const password=document.querySelector("pass");
+  const username=document.querySelector("username");
+  auth.createUserWithEmailAndPassword(email,password).then((cred)=>{
+    alert("user sign up");
+  });
+
+});
+
 // Google Authentication Example
 const googleLoginButton = document.getElementById("firelogin");
 googleLoginButton.addEventListener("click", async () => {

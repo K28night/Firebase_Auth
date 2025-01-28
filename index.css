@@ -67,6 +67,7 @@ button:hover {
     background-color: #465e8a;
     transform: scale(1.05);
 }
+
 .content{
     justify-content: space-between;
 }

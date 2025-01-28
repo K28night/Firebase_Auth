@@ -1,7 +1,7 @@
 // Import the Firebase modules you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getAuth,signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 // Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD1j2jZemTd21wo4k1qctyfgsDDfaX-XL8",
@@ -28,10 +28,27 @@ document.querySelector(".rlogin").addEventListener("click", async (e) => {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
     alert(`User ${username} signed up successfully!`);
+    window.location.href="welcome.html?name="+encodeURIComponent(result.user.displayName);;
   } catch (error) {
     alert(`Error: ${error.message}`);
   }
 });
+//Sign in
+
+document.querySelector(".ulogin").addEventListener("click", async (e)=>{
+  e.preventDefault();
+const email=document.querySelector("#email").value;
+const pass=document.querySelector("#pass").value;
+try{
+await signInWithEmailAndPassword(auth,email,pass);
+alert("User signed in successfully");
+window.location.href="welcome.html?name="+encodeURIComponent(result.user.displayName);
+}
+catch(error){
+alert(`Error:${error.message}`);
+}
+});
+
 
 // Google Authentication Example
 const googleLoginButton = document.getElementById("firelogin");

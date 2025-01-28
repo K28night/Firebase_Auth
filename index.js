@@ -26,7 +26,7 @@ document.querySelector(".rlogin").addEventListener("click", async (e) => {
   const username = document.querySelector("#username").value;
 
   try {
-    const cred = await auth.createUserWithEmailAndPassword(email, password);
+    const cred = await auth.createUserWithEmailAndPassword(auth,email, password);
     alert(`User ${username} signed up successfully!`);
   } catch (error) {
     alert(`Error: ${error.message}`);

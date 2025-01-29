@@ -67,7 +67,15 @@ button:hover {
     background-color: #465e8a;
     transform: scale(1.05);
 }
-
+@media (min-width:768px) {
+  .btn{
+    padding:0;
+padding-right:5px;
+  }
+  .wel h1{
+    margin-top: 8.5rem;
+  }
+}
 .content{
     justify-content: space-between;
 }

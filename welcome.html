@@ -156,13 +156,30 @@
         function addUser() {
             const email = prompt("Enter email to add:");
             if (email) {
-                const chatList = document.getElementById("chatList");
-                const li = document.createElement("li");
-                li.textContent = email;
-                li.onclick = () => openChat(email);
-                chatList.appendChild(li);
+                // Check if user exists in Firestore
+                db.collection("users").doc(email).get().then(doc => {
+                    if (doc.exists) {
+                        const chatList = document.getElementById("chatList");
+                        
+                        // Prevent duplicate entries
+                        if ([...chatList.children].some(li => li.textContent === email)) {
+                            alert("User already added!");
+                            return;
+                        }
+        
+                        const li = document.createElement("li");
+                        li.textContent = email;
+                        li.onclick = () => openChat(email);
+                        chatList.appendChild(li);
+                    } else {
+                        alert("User is not registered!");
+                    }
+                }).catch(error => {
+                    console.error("Error checking user:", error);
+                });
             }
         }
+        
 
         function openChat(email) {
             document.getElementById("sidebar").style.display = "none";

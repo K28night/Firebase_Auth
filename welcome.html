@@ -3,17 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatNow</title>
+    <title>ChatNow - WhatsApp UI</title>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #e5ddd5;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 30%;
+            background: #128C7E;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-area {
+            flex: 1;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            display: none;
+        }
+        .chat-area.active {
+            display: flex;
+        }
+        .chat-header {
+            background: #075E54;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .back-btn, .return-btn {
+            cursor: pointer;
+            font-size: 20px;
+            background: none;
+            border: none;
+            color: white;
+        }
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .chat-footer {
+            padding: 10px;
+            background: #f0f0f0;
+            display: flex;
+            gap: 10px;
+        }
+        .chat-footer input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+        }
+        .chat-footer button {
+            padding: 10px 15px;
+            background: #128C7E;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .add-user-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .chat-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .chat-list li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid white;
+        }
+        .chat-list li:hover {
+            background: #075E54;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+            }
+            .chat-area {
+                width: 100%;
+                display: none;
+            }
+            .chat-area.active {
+                display: flex;
+            }
+            .back-btn {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
-   
-    <h1>Welcome!</h1>
-    <p id="name"></p>
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <h2>ChatNow</h2>
+            <p id="name"></p>
+            <button class="add-user-btn" onclick="addUser()">Add Person by Email</button>
+            <ul class="chat-list" id="chatList"></ul>
+        </div>
+        <div class="chat-area" id="chatArea">
+            <div class="chat-header">
+                <button class="back-btn" onclick="goBack()">&#8592;</button>
+                <span id="chatHeader">Chat with Support</span>
+                <button class="return-btn" onclick="goBack()">Return to Chat History</button>
+            </div>
+            <div class="chat-body" id="chatBody"></div>
+            <div class="chat-footer">
+                <input type="text" id="messageInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">▶</button>
+            </div>
+        </div>
+    </div>
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const name = urlParams.get("name");
-        console.log(name); // Output: John Doe
-        document.querySelector("#name").textContent="Hello "+decodeURIComponent(name);
-        </script>
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        function addUser() {
+            const email = prompt("Enter email to add:");
+            if (email) {
+                const chatList = document.getElementById("chatList");
+                const li = document.createElement("li");
+                li.textContent = email;
+                li.onclick = () => openChat(email);
+                chatList.appendChild(li);
+            }
+        }
+
+        function openChat(email) {
+            document.getElementById("sidebar").style.display = "none";
+            document.getElementById("chatArea").classList.add("active");
+            document.getElementById("chatHeader").textContent = "Chat with " + email;
+            document.getElementById("chatBody").innerHTML = "";
+
+            db.collection("chats").doc(email).collection("messages").orderBy("timestamp")
+            .onSnapshot(snapshot => {
+                const chatBody = document.getElementById("chatBody");
+                chatBody.innerHTML = "";
+                snapshot.forEach(doc => {
+                    const messageElement = document.createElement("p");
+                    messageElement.textContent = doc.data().sender + ": " + doc.data().message;
+                    chatBody.appendChild(messageElement);
+                });
+            });
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById("messageInput");
+            const messageText = messageInput.value.trim();
+            if (messageText) {
+                const email = document.getElementById("chatHeader").textContent.replace("Chat with ", "");
+                db.collection("chats").doc(email).collection("messages").add({
+                    sender: "You",
+                    message: messageText,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                messageInput.value = "";
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+
+        function goBack() {
+            document.getElementById("sidebar").style.display = "flex";
+            document.getElementById("chatArea").classList.remove("active");
+        }
+    </script>
 </body>
 </html>
